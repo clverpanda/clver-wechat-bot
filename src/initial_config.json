@@ -1,0 +1,10 @@
+{
+    "confute": false,
+    "account_book": false,
+    "confute_contact": [],
+    "account_book_contact": [],
+    "config_name": {
+        "反驳": "confute",
+        "记账": "account_book"
+    }
+}

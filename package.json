@@ -1,0 +1,29 @@
+{
+  "name": "clver-wechat-bot",
+  "version": "1.0.0",
+  "description": "useful wechat bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "bot",
+    "wechat"
+  ],
+  "author": "clverpanda",
+  "license": "MIT",
+  "dependencies": {
+    "baidu-aip-sdk": "^2.3.3",
+    "crypto": "^1.0.1",
+    "file-box": "^0.8.24",
+    "iconv-lite": "^0.4.24",
+    "moment": "^2.22.2",
+    "qrcode-terminal": "^0.12.0",
+    "randomstring": "^1.1.5",
+    "wechaty": "^0.22.4",
+    "xlsx": "^0.14.0"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}
