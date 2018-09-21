@@ -43,8 +43,12 @@ const AutoChatDo = async (msg, config) => {
     if (room) {
       const topic = await room.topic();
       if (!config.auto_chat_contact.includes(topic)) return 0;
-      const res = await getChatResult(topic, text);
-      if (res) room.say(res);
+      if (text.includes('哥') || text.includes('爸') || text.includes('弟')) {
+          room.say('我是你哥！');
+      } else {
+        const res = await getChatResult(topic, text);
+        if (res) room.say(res);
+      }
     } else {
       const name = contact.name();
       if (!config.auto_chat_contact.includes(name)) return 0;
