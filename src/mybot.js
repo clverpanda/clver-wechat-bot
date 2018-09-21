@@ -45,6 +45,7 @@ bot.on('message', async msg => {
                     session: '[红包]爱国聪明牛逼屌青年群',
                     question: msg.text()
                 }));
+                console.log(result);
                 if (result.ret === 0) {
                     room.say(result.answer);
                 }
