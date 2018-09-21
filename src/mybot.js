@@ -47,7 +47,8 @@ bot.on('message', async msg => {
                 }));
                 console.log(result);
                 if (result.ret === 0) {
-                    room.say(result.answer);
+                    const d = result.data || {};
+                    room.say(d.answer || 'shit!');
                 }
             }
         }
