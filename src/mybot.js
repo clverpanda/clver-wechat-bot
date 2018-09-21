@@ -54,7 +54,7 @@ bot.on('message', async msg => {
         console.log(`图片结果：${result.msg}`);
         if (result.ret === 0) {
             const d = result.data;
-            room.say(FileBox.fromBase64(d.image));
+            room.say(FileBox.fromBase64(d.image, 'result.jpg'));
         }
     }
 });
