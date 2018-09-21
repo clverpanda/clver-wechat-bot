@@ -1,10 +1,13 @@
 {
     "confute": false,
     "account_book": false,
+    "auto_chat": false,
     "confute_contact": [],
     "account_book_contact": [],
+    "auto_chat_contact": [],
     "config_name": {
         "反驳": "confute",
-        "记账": "account_book"
+        "记账": "account_book",
+        "自动聊天": "auto_chat"
     }
 }

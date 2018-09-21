@@ -10,6 +10,7 @@ const KeyConfig = require('./key.json');
 const SettingDo = require('./setting/do');
 const ConfuteDo = require('./confute/do');
 const AccountBookDo = require('./account_book/do');
+const AutoChatDo = require('./auto_chat/do');
 const PS = require('./util/qq_api');
 const { commonParams } = require('./util/util');
 
@@ -36,7 +37,7 @@ bot.on('message', async msg => {
         if (confuteRes) return;
         const accountRes = await AccountBookDo(msg, config);
         if (accountRes) return;
-        
+        await AutoChatDo(msg, config);
     } else if (msg.type() === bot.Message.Type.Image && msg.room()) {
         const imageBox = await msg.toFileBox();
         const image = await imageBox.toBase64();
