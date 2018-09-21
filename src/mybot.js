@@ -32,8 +32,25 @@ bot.on('message', async msg => {
             console.log(config);
         }
 
-        await ConfuteDo(msg, config);
-        await AccountBookDo(msg, config);
+        const confuteRes = await ConfuteDo(msg, config);
+        if (confuteRes) return;
+        const accountRes = await AccountBookDo(msg, config);
+        if (accountRes) return;
+        if (msg.room() && !msg.self()) {
+            const room = msg.room();
+            const topic = await room.topic();
+            if (topic === '[红包]爱国聪明牛逼屌青年群') {
+                const result = await PS('/fcgi-bin/nlp/nlp_textchat', QQ_APP_KEY, Object.assign({}, commonParams(), {
+                    app_id: QQ_APP_ID,
+                    image: image,
+                    session: '[红包]爱国聪明牛逼屌青年群',
+                    question: msg.text()
+                }));
+                if (result.ret === 0) {
+                    room.say(result.answer);
+                }
+            }
+        }
     } else if (msg.type() === bot.Message.Type.Image && msg.room()) {
         const imageBox = await msg.toFileBox();
         const image = await imageBox.toBase64();
