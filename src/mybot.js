@@ -36,22 +36,7 @@ bot.on('message', async msg => {
         if (confuteRes) return;
         const accountRes = await AccountBookDo(msg, config);
         if (accountRes) return;
-        if (msg.room() && !msg.self()) {
-            const room = msg.room();
-            const topic = await room.topic();
-            if (topic === '[红包]爱国聪明牛逼屌青年群') {
-                const result = await PS('/fcgi-bin/nlp/nlp_textchat', QQ_APP_KEY, Object.assign({}, commonParams(), {
-                    app_id: QQ_APP_ID,
-                    session: '10000',
-                    question: msg.text()
-                }));
-                console.log(result);
-                if (result.ret === 0) {
-                    const d = result.data || {};
-                    room.say(d.answer || 'shit!');
-                }
-            }
-        }
+        
     } else if (msg.type() === bot.Message.Type.Image && msg.room()) {
         const imageBox = await msg.toFileBox();
         const image = await imageBox.toBase64();
@@ -60,46 +45,16 @@ bot.on('message', async msg => {
         if (topic !== '[红包]爱国聪明牛逼屌青年群') {
             return;
         }
-        const result = await PS('/fcgi-bin/face/face_faceidentify', QQ_APP_KEY, Object.assign({}, commonParams(), {
+        const result = await PS('/fcgi-bin/ptu/ptu_facemerge', QQ_APP_KEY, Object.assign({}, commonParams(), {
             app_id: QQ_APP_ID,
+            model: Math.round(Math.random() * 9 + 1),
             image: image,
-            group_id: 'group0',
-            topn: 3,
         }));
-        console.log(result);
+        console.log(`图片结果：${result.ret}`);
+        console.log(`图片结果：${result.msg}`);
         if (result.ret === 0) {
-            const d = result.data || {};
-            const cans = d.candidates || [];
-            const cansorted = cans.sort((a,b) => b.confidence - a.confidence);
-            const man = cansorted[0] || {};
-            const id = man.person_id;
-            const confidence = man.confidence;
-            let name = '';
-            switch (id) {
-                case 'person0':
-                    name = '陆猩';
-                    break;
-                case 'person1':
-                    name = '傻屌哲';
-                    break;
-                case 'person2':
-                    name = '菜鸡岩';
-                    break;
-            }
-            let resultVerified = false;
-            const verifyResult = await PS('/fcgi-bin/face/face_faceverify', QQ_APP_KEY, Object.assign({}, commonParams(), {
-                app_id: QQ_APP_ID,
-                image: image,
-                person_id: id,
-            }));
-            console.log(verifyResult);
-            if (verifyResult.ret === 0) {
-                const data = verifyResult.data || {};
-                if (data.ismatch && data.ismatch > 0) {
-                    resultVerified = true;
-                }
-            }
-            room.say(resultVerified ? `这傻脸，一看就是${name}！` : `${Math.floor(confidence / 10)}成是${name}`);
+            const d = result.data;
+            room.say(FileBox.fromBase64(d.image));
         }
     }
 });
