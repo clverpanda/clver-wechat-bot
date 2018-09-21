@@ -42,7 +42,7 @@ bot.on('message', async msg => {
             if (topic === '[红包]爱国聪明牛逼屌青年群') {
                 const result = await PS('/fcgi-bin/nlp/nlp_textchat', QQ_APP_KEY, Object.assign({}, commonParams(), {
                     app_id: QQ_APP_ID,
-                    session: '[红包]爱国聪明牛逼屌青年群',
+                    session: '10000',
                     question: msg.text()
                 }));
                 console.log(result);
