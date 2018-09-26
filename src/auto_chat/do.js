@@ -28,7 +28,7 @@ const getChatResult = async (contactName, text) => {
     console.log(result);
     if (result.ret === 0) {
         const d = result.data || {};
-        room.say(d.answer || 'shit!');
+        return d.answer || 'shit!';
     } else {
         return null;
     }
